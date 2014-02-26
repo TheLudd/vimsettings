@@ -10,3 +10,6 @@
 [submodule "bundle/exchange"]
 	path = bundle/exchange
 	url = git@github.com:tommcdo/vim-exchange.git
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git@github.com:tpope/vim-fugitive.git
