@@ -4,3 +4,6 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git@github.com:ervandew/supertab.git
+[submodule "bundle/coffee"]
+	path = bundle/coffee
+	url = git@github.com:ervandew/supertab.git
