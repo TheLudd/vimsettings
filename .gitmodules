@@ -7,3 +7,6 @@
 [submodule "bundle/coffee"]
 	path = bundle/coffee
 	url = git@github.com:ervandew/supertab.git
+[submodule "bundle/exchange"]
+	path = bundle/exchange
+	url = git@github.com:tommcdo/vim-exchange.git
