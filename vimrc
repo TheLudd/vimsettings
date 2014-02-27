@@ -3,10 +3,10 @@ inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
 inoremap  <Left>   <NOP>
 inoremap  <Right>  <NOP>
-nmap <Left> <C-w>h
-nmap <Down> <C-w>j
-nmap <Up> <C-w>k
-nmap <Right> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 set number
 
 function! <SID>StripTrailingWhitespaces()
@@ -21,4 +21,4 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-autocmd BufWritePre *.coffee, *.js :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.coffee,*.js :call <SID>StripTrailingWhitespaces()
