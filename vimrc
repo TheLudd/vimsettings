@@ -1,16 +1,13 @@
 call pathogen#infect() 
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-nmap - ddp
-nmap _ ddkP
+syntax enable
+filetype plugin indent on
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap - ddp
+noremap _ ddkP
 set number
-noremap !sv :source $MYVIMRC
 onoremap p i(
 onoremap P a(
 onoremap q i"
