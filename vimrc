@@ -10,6 +10,15 @@ nmap <C-l> <C-w>l
 nmap - ddp
 nmap _ ddkP
 set number
+noremap !sv :source $MYVIMRC
+onoremap p i(
+onoremap P a(
+onoremap q i"
+onoremap Q a"
+onoremap b i]
+onoremap B a]
+onoremap c i{
+onoremap C a{
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
