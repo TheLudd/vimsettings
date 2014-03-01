@@ -35,3 +35,40 @@ if has("autocmd")
     filetype on
     autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 endif
+
+
+let mapleader = "'"
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+cnoreabbrev W w
+cnoreabbrev X x
+cnoreabbrev Q q
+cnoreabbrev tc tabclose
+set noswapfile
+
+function! OpenWithTest(filePath, type)
+    let parts = split(a:filePath, '/')
+    let l = len(parts)
+    let file = parts[l - 1]
+    let fileParts = split(file, '\.')
+    let fileName = fileParts[0]
+    echo fileName
+    :execute ":tabedit " . a:filePath
+    :execute ":vsplit specs/" . a:type . "/" . fileName . "-spec.coffee"
+endfunction
+
+function! OpenUnit(filePath)
+    call OpenWithTest(a:filePath, 'unit')
+endfunction
+
+function! OpenE2E(filePath)
+    call OpenWithTest(a:filePath, 'e2e')
+endfunction
+
+function! OpenIt(filePath)
+    call OpenWithTest(a:filePath, 'it')
+endfunction
+
+command! -complete=file -nargs=1 U call OpenUnit(<f-args>)
+command! -complete=file -nargs=1 I call OpenIt(<f-args>)
+command! -complete=file -nargs=1 E call OpenE2E(<f-args>)
