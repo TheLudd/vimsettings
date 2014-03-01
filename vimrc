@@ -38,13 +38,25 @@ endif
 
 
 let mapleader = "'"
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+function! EditVimRC()
+    if TabIsEmpty()
+        :execute "e $MYVIMRC"
+    else
+        :execute "tabe $MYVIMRC"
+    endif
+endfunction
+
+nnoremap <leader>ev :call EditVimRC()<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 cnoreabbrev W w
 cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
 set noswapfile
+
+function! TabIsEmpty()
+    return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2
+endfunction
 
 function! OpenWithTest(filePath, type)
     let parts = split(a:filePath, '/')
@@ -53,7 +65,11 @@ function! OpenWithTest(filePath, type)
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
     echo fileName
-    :execute ":tabedit " . a:filePath
+    if TabIsEmpty()
+        :execute ":e " . a:filePath
+    else
+        :execute ":tabedit " . a:filePath
+    endif
     :execute ":vsplit specs/" . a:type . "/" . fileName . "-spec.coffee"
 endfunction
 
