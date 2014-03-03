@@ -1,10 +1,11 @@
-function! EditVimRC()
+function! EditFile(path)
     if TabIsEmpty()
-        :execute "e $MYVIMRC"
+        :execute "e " . a:path
     else
-        :execute "tabe $MYVIMRC"
+        :execute "tabe " . a:path
     endif
 endfunction
 
-nnoremap <leader>ev :call EditVimRC()<cr>
+nnoremap <leader>ev :call EditFile("$MYVIMRC")<cr>
+nnoremap <leader>em :call EditFile("~/.vim/plugin/mappings.vim")<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>

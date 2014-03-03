@@ -1,16 +1,20 @@
+function! OpenBoth(left, right)
+    if TabIsEmpty()
+        :execute ":e " . a:right
+    else
+        :execute ":tabedit " . a:right
+    endif
+    :execute ":vsplit " . a:left
+endfunction
+
 function! OpenWithTest(filePath, type)
     let parts = split(a:filePath, '/')
     let l = len(parts)
     let file = parts[l - 1]
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
-    echo fileName
-    if TabIsEmpty()
-        :execute ":e " . a:filePath
-    else
-        :execute ":tabedit " . a:filePath
-    endif
-    :execute ":vsplit specs/" . a:type . "/" . fileName . "-spec.coffee"
+    let testPath = " specs/" . a:type . "/" . fileName . "-spec.coffee"
+    call OpenBoth(testPath, a:filePath)
 endfunction
 
 function! OpenUnit(filePath)

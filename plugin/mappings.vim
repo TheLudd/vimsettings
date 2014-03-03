@@ -8,12 +8,13 @@ onoremap p i(
 onoremap P a(
 onoremap q i"
 onoremap Q a"
-onoremap b i]
-onoremap B a]
+onoremap a i]
+onoremap A a]
 onoremap c i{
 onoremap C a{
 cnoreabbrev W w
 cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
+cnoreabbrev test ! npm test
 set noswapfile
