@@ -3,11 +3,12 @@ syntax enable
 filetype plugin indent on
 set number
 let mapleader = "'"
+set wildmenu
+set wildmode=list:longest
 
 function! TabIsEmpty()
     return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2
 endfunction
-nnoremap Y y$
 
 " Edit vimrc
 function! EditFile(path)
@@ -40,6 +41,7 @@ cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
 cnoreabbrev test ! npm test
+nnoremap Y y$
 set noswapfile
 
 " Open file with spec
@@ -77,6 +79,24 @@ endfunction
 command! -complete=file -nargs=1 U call OpenUnit(<f-args>)
 command! -complete=file -nargs=1 I call OpenIt(<f-args>)
 command! -complete=file -nargs=1 E call OpenE2E(<f-args>)
+
+" CoffeScript mappings
+function! ApplyCoffescriptMappings()
+    nnoremap <buffer> ]g /Given<cr>
+    nnoremap <buffer> [g ?Given<cr>
+    nnoremap <buffer> ]w /When<cr>
+    nnoremap <buffer> [w ?When<cr>
+    nnoremap <buffer> ]t /Then<cr>
+    nnoremap <buffer> [t ?Then<cr>
+    nnoremap <buffer> ]i /Invariant<cr>
+    nnoremap <buffer> [i ?Invariant<cr>
+    nnoremap <buffer> ]a /And<cr>
+    nnoremap <buffer> [a ?And<cr>
+    nnoremap <buffer> ]d /describe<cr>
+    nnoremap <buffer> [d ?describe<cr>
+endfunction
+
+au BufRead *.coffee :call ApplyCoffescriptMappings()
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
