@@ -22,3 +22,9 @@
 [submodule "bundle/splitjoin"]
 	path = bundle/splitjoin
 	url = git@github.com:AndrewRadev/splitjoin.vim.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule "bundle/snippets"]
+	path = bundle/snippets
+	url = https://github.com/honza/vim-snippets.git

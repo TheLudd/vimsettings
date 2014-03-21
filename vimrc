@@ -41,6 +41,7 @@ cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
 cnoreabbrev test ! npm test
+cnoreabbrev GA Git add %
 nnoremap Y y$
 set noswapfile
 
@@ -60,7 +61,11 @@ function! OpenWithTest(filePath, type)
     let file = parts[l - 1]
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
-    let testPath = " specs/" . a:type . "/" . fileName . "-spec.coffee"
+    let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
+    if !filereadable(testPath)
+        let p = split(a:filePath, '\.')
+        let testPath = p[0] . 'Spec.coffee'
+    endif
     call OpenBoth(testPath, a:filePath)
 endfunction
 
@@ -96,7 +101,7 @@ function! ApplyCoffescriptMappings()
     nnoremap <buffer> [d ?describe<cr>
 endfunction
 
-au BufRead *.coffee :call ApplyCoffescriptMappings()
+au BufRead,BufNew *.coffee :call ApplyCoffescriptMappings()
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
