@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/usr/share/doc/bash/examples/startup-files'
-let g:netrw_dirhist_2='/home/ludwig/work/html-client/http-pub/angapp'
-let g:netrw_dirhist_3='/home/ludwig/work/html-client/http-pub/angapp/components'
-let g:netrw_dirhist_4='/home/ludwig/work/html-client/http-pub/angapp'
-let g:netrw_dirhist_5='/home/ludwig/work/html-client/http-pub/angapp/social-login'
