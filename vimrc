@@ -28,8 +28,8 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-noremap - :normal ddp<CR>
-noremap _ @='ddkP'<CR>
+nnoremap - :normal ddp<CR>
+nnoremap _ @='ddkP'<CR>
 onoremap P a(
 onoremap p i(
 onoremap Q a"
@@ -40,7 +40,6 @@ cnoreabbrev W w
 cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
-cnoreabbrev test ! npm test
 cnoreabbrev GA Git add %
 nnoremap Y y$
 set noswapfile
@@ -121,4 +120,5 @@ if has("autocmd")
     " Enable file type detection
     filetype on
     autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType json setlocal ts=4 sts=4 sw=4 expandtab
 endif
