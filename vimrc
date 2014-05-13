@@ -54,14 +54,14 @@ function! OpenBoth(left, right)
     :execute ":vsplit " . a:left
 endfunction
 
-function! OpenWithTest(filePath, type)
+function! OpenWithTest(filePath, type, useNew)
     let parts = split(a:filePath, '/')
     let l = len(parts)
     let file = parts[l - 1]
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
     let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
-    if !filereadable(testPath)
+    if !filereadable(testPath) && a:useNew
         let p = split(a:filePath, '\.')
         let testPath = p[0] . 'Spec.coffee'
     endif
@@ -69,20 +69,35 @@ function! OpenWithTest(filePath, type)
 endfunction
 
 function! OpenUnit(filePath)
-    call OpenWithTest(a:filePath, 'unit')
+    call OpenWithTest(a:filePath, 'unit', '1')
 endfunction
 
 function! OpenE2E(filePath)
-    call OpenWithTest(a:filePath, 'e2e')
+    call OpenWithTest(a:filePath, 'e2e', '1')
 endfunction
 
 function! OpenIt(filePath)
-    call OpenWithTest(a:filePath, 'it')
+    call OpenWithTest(a:filePath, 'it', '1')
+endfunction
+
+function! OpenOldUnit(filePath)
+    call OpenWithTest(a:filePath, 'unit', '0')
+endfunction
+
+function! OpenOldE2E(filePath)
+    call OpenWithTest(a:filePath, 'e2e', '0')
+endfunction
+
+function! OpenOldIt(filePath)
+    call OpenWithTest(a:filePath, 'it', '0')
 endfunction
 
 command! -complete=file -nargs=1 U call OpenUnit(<f-args>)
 command! -complete=file -nargs=1 I call OpenIt(<f-args>)
 command! -complete=file -nargs=1 E call OpenE2E(<f-args>)
+command! -complete=file -nargs=1 Uo call OpenOldUnit(<f-args>)
+command! -complete=file -nargs=1 Io call OpenOldIt(<f-args>)
+command! -complete=file -nargs=1 Eo call OpenOldE2E(<f-args>)
 
 " CoffeScript mappings
 function! ApplyCoffescriptMappings()
