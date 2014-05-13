@@ -4,3 +4,14 @@ angular.module('Falcon')
 		${2}
 	});
 endsnippet
+
+snippet con "Angular controller" 
+angular.module('Falcon')
+	.controller('${1:name}', function($scope, ${2}) {
+        $scope.${3}
+	});
+endsnippet
+
+snippet r "Require" b
+var $1 = require('$1');
+endsnippet

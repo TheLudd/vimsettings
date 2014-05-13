@@ -2,8 +2,16 @@ snippet G "Given"
 Given -> 
 endsnippet
 
+snippet Gi "Given inject"
+Given inject ($1) -> 
+endsnippet
+
 snippet W "When"
 When -> 
+endsnippet
+
+snippet Wi "When inject"
+When inject ($1) -> 
 endsnippet
 
 snippet Wd "When (done)"
@@ -24,4 +32,20 @@ endsnippet
 
 snippet amm "Angular mock module" 
 angular.mock.module 'Falcon'
+endsnippet
+
+snippet r "require" b
+$1 = require '$1'
+endsnippet
+
+snippet contest "Controller test" b
+describe '$1', ->
+    Given -> angular.mock.module 'Falcon'
+
+    When inject ($rootScope, $controller) ->
+        @scope = $rootScope.$new()
+        $controller '$1',
+            $scope: @scope
+
+    Then ->
 endsnippet
