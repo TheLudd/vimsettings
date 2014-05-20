@@ -51,11 +51,7 @@ snippet FU "function with arguments"
 endsnippet
 
 snippet amm "Angular mock module" 
-angular.mock.module 'Falcon'
-endsnippet
-
-snippet r "require" b
-$1 = require '$1'
+angular.mock.module '${1:Falcon}'
 endsnippet
 
 snippet contest "Controller test" b
@@ -68,4 +64,44 @@ describe '$1', ->
             $scope: @scope
 
     Then ->
+endsnippet
+
+snippet lod "Require lodash" b
+_ = require 'lodash'
+endsnippet
+
+snippet P "Blubird Pomise" b
+Promise = require 'bluebird'
+endsnippet
+
+snippet fac "Angular Factory" b
+angular.module('$1').factory '$2', ->
+endsnippet
+
+snippet ser "Angular Service" b
+angular.module('$1').service '$2', ->
+endsnippet
+
+snippet fil "Angular Filter" b
+angular.module('$1').filter '$2', ->
+endsnippet
+
+snippet con "Angular Filter" b
+angular.module('$1').controller '$2', ->
+endsnippet
+
+snippet dir "Angular Directive" b
+angular.module('$1').directive '$2', ->
+	restrict: 'AE'
+	scope: {}
+	link: (scope, element, attrs) ->
+endsnippet
+
+snippet state "Ui router state" b
+.state '$1',
+	url: '$2'
+	controller: '$3'
+	template$4: '$5'
+	resolve:
+		$6
 endsnippet
