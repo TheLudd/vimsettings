@@ -115,7 +115,14 @@ function! ApplyCoffescriptMappings()
     nnoremap <buffer> [d ?describe<cr>
 endfunction
 
+function! Indent2Spaces()
+    setlocal expandtab
+    setlocal shiftwidth=2
+    setlocal softtabstop=2
+endfunction
+
 au BufRead,BufNew *.coffee :call ApplyCoffescriptMappings()
+au BufRead,BufNew *.coffee,*.feature :call Indent2Spaces()
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
