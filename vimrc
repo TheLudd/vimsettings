@@ -144,3 +144,5 @@ if has("autocmd")
     autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType json setlocal ts=4 sts=4 sw=4 expandtab
 endif
+
+let coffee_compiler = '/usr/local/bin/coffee'
