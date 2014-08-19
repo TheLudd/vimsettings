@@ -54,16 +54,20 @@ function! OpenBoth(left, right)
     :execute ":vsplit " . a:left
 endfunction
 
-function! OpenWithTest(filePath, type, useNew)
+function! OpenWithTest(filePath, type, mode)
     let parts = split(a:filePath, '/')
     let l = len(parts)
     let file = parts[l - 1]
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
     let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
-    if !filereadable(testPath) && a:useNew
-        let p = split(a:filePath, '\.')
-        let testPath = p[0] . 'Spec.coffee'
+    if !filereadable(testPath)
+        if a:mode == '1'
+            let p = split(a:filePath, '\.')
+            let testPath = p[0] . 'Spec.coffee'
+        elseif a:mode == '2'
+            let testPath = "test/" . a:type . "/" . fileName . "-spec.coffee"
+        endif
     endif
     call OpenBoth(testPath, a:filePath)
 endfunction
@@ -78,6 +82,18 @@ endfunction
 
 function! OpenIt(filePath)
     call OpenWithTest(a:filePath, 'it', '1')
+endfunction
+
+function! OpenNewUnit(filePath)
+    call OpenWithTest(a:filePath, 'unit', '2')
+endfunction
+
+function! OpenNewE2E(filePath)
+    call OpenWithTest(a:filePath, 'e2e', '2')
+endfunction
+
+function! OpenNewIt(filePath)
+    call OpenWithTest(a:filePath, 'it', '2')
 endfunction
 
 function! OpenOldUnit(filePath)
@@ -95,6 +111,9 @@ endfunction
 command! -complete=file -nargs=1 U call OpenUnit(<f-args>)
 command! -complete=file -nargs=1 I call OpenIt(<f-args>)
 command! -complete=file -nargs=1 E call OpenE2E(<f-args>)
+command! -complete=file -nargs=1 Un call OpenNewUnit(<f-args>)
+command! -complete=file -nargs=1 In call OpenNewIt(<f-args>)
+command! -complete=file -nargs=1 En call OpenNewE2E(<f-args>)
 command! -complete=file -nargs=1 Uo call OpenOldUnit(<f-args>)
 command! -complete=file -nargs=1 Io call OpenOldIt(<f-args>)
 command! -complete=file -nargs=1 Eo call OpenOldE2E(<f-args>)
