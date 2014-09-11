@@ -37,3 +37,9 @@
 [submodule "bundle/jsx"]
 	path = bundle/jsx
 	url = git@github.com:mxw/vim-jsx.git
+[submodule "bundle/autoformat"]
+	path = bundle/autoformat
+	url = git@github.com:Chiel92/vim-autoformat.git
+[submodule "bundle/cjsx"]
+	path = bundle/cjsx
+	url = git@github.com:mtscout6/vim-cjsx.git

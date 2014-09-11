@@ -141,7 +141,7 @@ function! Indent2Spaces()
 endfunction
 
 au BufRead,BufNew *.coffee :call ApplyCoffescriptMappings()
-au BufRead,BufNew *.coffee,*.feature :call Indent2Spaces()
+au BufRead,BufNew *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
@@ -165,3 +165,7 @@ if has("autocmd")
 endif
 
 let coffee_compiler = '/usr/local/bin/coffee'
+
+let g:formatprg_js = "js-beautify"
+let g:formatprg_args_js = "-s 2"
+noremap <F3> :Autoformat<CR><CR>
