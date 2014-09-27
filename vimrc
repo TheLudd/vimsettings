@@ -62,11 +62,14 @@ function! OpenWithTest(filePath, type, mode)
     let fileName = fileParts[0]
     let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
     if !filereadable(testPath)
-        if a:mode == '1'
+        let testPath = "test/" . a:type . "/" . fileName . "-test.coffee"
+        if filereadable(testPath)
+
+        elseif a:mode == '1'
             let p = split(a:filePath, '\.')
             let testPath = p[0] . 'Spec.coffee'
         elseif a:mode == '2'
-            let testPath = "test/" . a:type . "/" . fileName . "-spec.coffee"
+            let testPath = "test/" . a:type . "/" . fileName . "-test.coffee"
         endif
     endif
     call OpenBoth(testPath, a:filePath)
