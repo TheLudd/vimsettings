@@ -44,6 +44,9 @@ cnoreabbrev GA Git add %
 nnoremap Y y$
 set noswapfile
 
+" Ultisnips
+let g:UltiSnipsEditSplit = "vertical"
+
 " Open file with spec
 function! OpenBoth(left, right)
     if TabIsEmpty()

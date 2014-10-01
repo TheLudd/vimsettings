@@ -1,3 +1,14 @@
+snippet t "Description" b
+`!p 
+from subprocess import Popen, PIPE
+source = t[1]
+goodPart = source.rpartition('/')[2]
+p = Popen(['change-case', '-c', goodPart], stdout=PIPE)
+full = p.communicate()[0].strip()
+snip.rv = full
+` = require('$1')
+endsnippet
+
 snippet G "Given"
 Given -> 
 endsnippet
