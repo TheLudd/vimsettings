@@ -2,9 +2,15 @@ call pathogen#infect()
 syntax enable
 filetype plugin indent on
 set number
+set incsearch
 let mapleader = "'"
 set wildmenu
 set wildmode=list:longest
+
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 function! TabIsEmpty()
     return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2
@@ -63,6 +69,10 @@ function! OpenWithTest(filePath, type, mode)
     let file = parts[l - 1]
     let fileParts = split(file, '\.')
     let fileName = fileParts[0]
+    if fileName == 'index'
+        let fileName = parts[l -2]
+    endif
+
     let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
     if !filereadable(testPath)
         let testPath = "test/" . a:type . "/" . fileName . "-test.coffee"
