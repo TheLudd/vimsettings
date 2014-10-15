@@ -6,7 +6,7 @@ goodPart = source.rpartition('/')[2]
 p = Popen(['change-case', '-c', goodPart], stdout=PIPE)
 full = p.communicate()[0].strip()
 snip.rv = full
-` = require('$1')
+` = require '${1:${VISUAL}}'
 endsnippet
 
 snippet G "Given"
