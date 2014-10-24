@@ -156,8 +156,8 @@ function! Indent2Spaces()
     setlocal softtabstop=2
 endfunction
 
-au BufRead,BufNew *.coffee :call ApplyCoffescriptMappings()
-au BufRead,BufNew *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
+au BufRead,BufNewFile *.coffee :call ApplyCoffescriptMappings()
+au BufRead,BufNewFile *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
