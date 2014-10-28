@@ -20,6 +20,14 @@ snippet sc "scope variable" b
 $scope.$1 = $1;
 endsnippet
 
+snippet fac "Angular factory" b
+angular.module('$1').factory('$2', function(
+		
+	) {
+	
+	});
+endsnippet
+
 snippet ser "Angular service" b
 angular.module('$1').service('$2', function(
 		
@@ -32,6 +40,6 @@ snippet R "Require react" b
 var React = require('react');
 endsnippet
 
-snippet cons "Description"
+snippet log "Description"
 console.log($1);
 endsnippet

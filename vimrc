@@ -158,6 +158,7 @@ endfunction
 
 au BufRead,BufNewFile *.coffee :call ApplyCoffescriptMappings()
 au BufRead,BufNewFile *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
+au BufRead,BufNewFile *.ko set syntax=html
 
 " Remove trailing whitespace when saving 
 function! <SID>StripTrailingWhitespaces()
@@ -178,6 +179,7 @@ if has("autocmd")
     filetype on
     autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType json setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType ko setlocal syntax=html
 endif
 
 let coffee_compiler = '/usr/local/bin/coffee'
@@ -185,3 +187,19 @@ let coffee_compiler = '/usr/local/bin/coffee'
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-s 2"
 noremap <F3> :Autoformat<CR><CR>
+
+function! TabCloseRight(bang)
+    let cur=tabpagenr()
+    while cur < tabpagenr('$')
+        exe 'tabclose' . a:bang . ' ' . (cur + 1)
+    endwhile
+endfunction
+
+function! TabCloseLeft(bang)
+    while tabpagenr() > 1
+        exe 'tabclose' . a:bang . ' 1'
+    endwhile
+endfunction
+
+command! -bang Tcr call TabCloseRight('<bang>')
+command! -bang Tcl call TabCloseLeft('<bang>')
