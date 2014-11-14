@@ -125,3 +125,13 @@ snippet route "Route"
 routes.$1 '$2', (req, res) ->
   res.end()
 endsnippet
+
+snippet R "Ramda" b
+R = require 'ramda'
+endsnippet
+
+snippet desm "Describe method" b
+describe '#$1', ->
+  When -> @subject.$1()
+  Then ->
+endsnippet

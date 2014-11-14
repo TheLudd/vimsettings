@@ -174,6 +174,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 autocmd BufWritePre *.coffee,*.js :call <SID>StripTrailingWhitespaces()
+
 if has("autocmd")
     " Enable file type detection
     filetype on
