@@ -1,39 +1,9 @@
-snippet fil "Angular filter" 
-angular.module('Falcon')
-	.filter('${1:name}', function() {
-		${2}
-	});
-endsnippet
-
-snippet con "Angular controller" 
-angular.module('Falcon')
-	.controller('${1:name}', function($scope, ${2}) {
-        $scope.${3}
-	});
-endsnippet
-
 snippet r "Require" b
 var $1 = require('$1');
 endsnippet
 
 snippet sc "scope variable" b
 $scope.$1 = $1;
-endsnippet
-
-snippet fac "Angular factory" b
-angular.module('$1').factory('$2', function(
-		
-	) {
-	
-	});
-endsnippet
-
-snippet ser "Angular service" b
-angular.module('$1').service('$2', function(
-		
-	) {
-	
-	});
 endsnippet
 
 snippet R "Require react" b

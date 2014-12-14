@@ -7,6 +7,7 @@ let mapleader = "'"
 set wildmenu
 set wildmode=list:longest
 
+let g:ctrlp_custom_ignore = '\v[\/](\.git|node_modules)$'
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
     \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
@@ -30,6 +31,7 @@ nnoremap <leader>em :call EditFile("~/.vim/plugin/mappings.vim")<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Mappings
+noremap Q <nop>
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -156,6 +158,7 @@ function! Indent2Spaces()
     setlocal softtabstop=2
 endfunction
 
+au BufRead,BufNewFile *.cson set ft=coffee
 au BufRead,BufNewFile *.coffee :call ApplyCoffescriptMappings()
 au BufRead,BufNewFile *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
 au BufRead,BufNewFile *.ko set syntax=html
