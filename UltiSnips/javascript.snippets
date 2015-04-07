@@ -15,19 +15,72 @@ console.log($1);
 endsnippet
 
 snippet fac "Factory" b
-module.exports = function() {
+module.exports = function(
+
+) {
+
+  $1
 
 };
 endsnippet
 
+snippet facfac "Factory factory" b
+module.exports = function() {
+
+  function $1() {
+
+  }
+
+  return $1;
+};
+endsnippet
+
 snippet rcom "React Component" b
-module.exports = function(React) {
-  return $1 = React.createClass({
+module.exports = function(
+  React
+) {
+  var $1 = React.createClass({
     render: function() {
       return (
   	  $2
       )
     }
   });
+
+  return $1;
+};
+endsnippet
+
+snippet CRUDProjection "CRUDProjection" b
+var inherits = require('util').inherits;
+module.exports = function(
+  CRUDProjection
+) {
+
+  inherits($1Projection, CRUDProjection);
+
+  function $1Projection() {
+    $1Projection.super_.call(this, '$1');
+  };
+
+  return $1Projection;
+
+};
+endsnippet
+
+snippet objfac "Object factory" b
+module.exports = function() {
+
+  function $1() {
+    var self = {};
+
+    self.$2 = function() {
+	
+    };
+
+    return self;
+  }
+
+  return $1;
 };
 endsnippet

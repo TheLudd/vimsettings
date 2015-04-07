@@ -1,4 +1,4 @@
-call pathogen#infect() 
+call pathogen#infect()
 syntax enable
 filetype plugin indent on
 set number
@@ -6,6 +6,7 @@ set incsearch
 let mapleader = "'"
 set wildmenu
 set wildmode=list:longest
+set pastetoggle=<F2>
 
 let g:ctrlp_custom_ignore = '\v[\/](\.git|node_modules)$'
 let g:ctrlp_prompt_mappings = {
@@ -45,11 +46,17 @@ onoremap c i{
 onoremap q i"
 onoremap C a{
 cnoreabbrev W w
+cnoreabbrev Wa wa
+cnoreabbrev Qa qa
 cnoreabbrev X x
 cnoreabbrev Q q
 cnoreabbrev tc tabclose
 cnoreabbrev GA Git add %
 nnoremap Y y$
+nnoremap <Right> xp
+nnoremap <Left> xhP
+inoremap <Right> <ESC>lxpi
+inoremap <Left> <ESC>lxhPi
 set noswapfile
 
 " Ultisnips
@@ -65,7 +72,7 @@ function! OpenBoth(left, right)
     :execute ":vsplit " . a:left
 endfunction
 
-function! OpenWithTest(filePath, type, mode)
+function! OpenWithTest(filePath, type)
     let parts = split(a:filePath, '/')
     let l = len(parts)
     let file = parts[l - 1]
@@ -74,67 +81,44 @@ function! OpenWithTest(filePath, type, mode)
     if fileName == 'index'
         let fileName = parts[l -2]
     endif
-
-    let testPath = "specs/" . a:type . "/" . fileName . "-spec.coffee"
-    if !filereadable(testPath)
-        let testPath = "test/" . a:type . "/" . fileName . "-test.coffee"
-        if filereadable(testPath)
-
-        elseif a:mode == '1'
-            let p = split(a:filePath, '\.')
-            let testPath = p[0] . 'Spec.coffee'
-        elseif a:mode == '2'
-            let testPath = "test/" . a:type . "/" . fileName . "-test.coffee"
-        endif
+    if a:type == ''
+        let fullPathParts = ['test'] + parts[1:l-2] + [fileName]
+    elseif a:type == 'abstract'
+        let fullPathParts = ['test'] + [ 'abstract-' . fileName ]
+    else
+        let fullPathParts = ['test', a:type ] + parts[1:l-2] + [fileName]
     endif
+    let fullPath = join(fullPathParts, '/')
+    let testPath = fullPath . '-test.coffee'
     call OpenBoth(testPath, a:filePath)
 endfunction
 
 function! OpenUnit(filePath)
-    call OpenWithTest(a:filePath, 'unit', '1')
+    call OpenWithTest(a:filePath, 'unit')
 endfunction
 
 function! OpenE2E(filePath)
-    call OpenWithTest(a:filePath, 'e2e', '1')
+    call OpenWithTest(a:filePath, 'e2e')
 endfunction
 
 function! OpenIt(filePath)
-    call OpenWithTest(a:filePath, 'it', '1')
+    call OpenWithTest(a:filePath, 'it')
 endfunction
 
-function! OpenNewUnit(filePath)
-    call OpenWithTest(a:filePath, 'unit', '2')
+function! OpenFlatTest(filePath)
+    call OpenWithTest(a:filePath, '')
 endfunction
 
-function! OpenNewE2E(filePath)
-    call OpenWithTest(a:filePath, 'e2e', '2')
-endfunction
-
-function! OpenNewIt(filePath)
-    call OpenWithTest(a:filePath, 'it', '2')
-endfunction
-
-function! OpenOldUnit(filePath)
-    call OpenWithTest(a:filePath, 'unit', '0')
-endfunction
-
-function! OpenOldE2E(filePath)
-    call OpenWithTest(a:filePath, 'e2e', '0')
-endfunction
-
-function! OpenOldIt(filePath)
-    call OpenWithTest(a:filePath, 'it', '0')
+function! OpenAbstractTest(filePath)
+    call OpenWithTest(a:filePath, 'abstract')
 endfunction
 
 command! -complete=file -nargs=1 U call OpenUnit(<f-args>)
 command! -complete=file -nargs=1 I call OpenIt(<f-args>)
 command! -complete=file -nargs=1 E call OpenE2E(<f-args>)
-command! -complete=file -nargs=1 Un call OpenNewUnit(<f-args>)
-command! -complete=file -nargs=1 In call OpenNewIt(<f-args>)
-command! -complete=file -nargs=1 En call OpenNewE2E(<f-args>)
-command! -complete=file -nargs=1 Uo call OpenOldUnit(<f-args>)
-command! -complete=file -nargs=1 Io call OpenOldIt(<f-args>)
-command! -complete=file -nargs=1 Eo call OpenOldE2E(<f-args>)
+
+command! -complete=file -nargs=1 T call OpenFlatTest(<f-args>)
+command! -complete=file -nargs=1 A call OpenAbstractTest(<f-args>)
 
 " CoffeScript mappings
 function! ApplyCoffescriptMappings()
@@ -163,8 +147,12 @@ au BufRead,BufNewFile *.coffee :call ApplyCoffescriptMappings()
 au BufRead,BufNewFile *.coffee,*.feature,*.js,*.jsx :call Indent2Spaces()
 au BufRead,BufNewFile *.ko set syntax=html
 
-" Remove trailing whitespace when saving 
+" Remove trailing whitespace when saving
 function! <SID>StripTrailingWhitespaces()
+    if exists('b:noStripWhitespace')
+        return
+    endif
+
     " Preparation: save last search, and cursor position.
     let _s=@/
     let l = line(".")
@@ -176,7 +164,8 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-autocmd BufWritePre *.coffee,*.js :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.snippets let b:noStripWhitespace=1
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 if has("autocmd")
     " Enable file type detection

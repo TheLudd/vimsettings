@@ -1,5 +1,16 @@
-snippet t "Description" b
-`!p 
+snippet r "Require" b
+`!p
+from subprocess import Popen, PIPE
+source = t[1]
+goodPart = source.rpartition('/')[2]
+p = Popen(['change-case', '-c', goodPart], stdout=PIPE)
+full = p.communicate()[0].strip()
+snip.rv = full
+` = require '${1:${VISUAL}}'
+endsnippet
+
+snippet t "Test require" b
+`!p
 from subprocess import Popen, PIPE
 source = t[1]
 goodPart = source.rpartition('/')[2]
@@ -9,40 +20,70 @@ snip.rv = full
 ` = getDep '${1:${VISUAL}}'
 endsnippet
 
+snippet test "Description" b
+`!p
+from subprocess import Popen, PIPE
+source = t[1]
+goodPart = source.rpartition('/')[2]
+p = Popen(['change-case', '-c', goodPart], stdout=PIPE)
+full = p.communicate()[0].strip()
+snip.rv = full
+` = getDep '${1:${VISUAL}}'
+
+describe '`!p snip.rv = full`', ->
+
+  When -> @subject = `!p snip.rv = full`()
+  Then ->
+endsnippet
+
+snippet factest "Description" b
+`!p
+from subprocess import Popen, PIPE
+source = t[1]
+goodPart = source.rpartition('/')[2]
+p = Popen(['change-case', '-c', goodPart], stdout=PIPE)
+full = p.communicate()[0].strip()
+snip.rv = full
+` = getDep '${1:${VISUAL}}'
+
+describe '`!p snip.rv = full`', ->
+
+  When -> 
+    factory = `!p snip.rv = full`()
+    @subject = factory()
+  Then ->
+endsnippet
+
 snippet G "Given"
-Given -> 
+Given ->
 endsnippet
 
 snippet Gi "Given inject"
-Given inject ($1) -> 
+Given inject ($1) ->
 endsnippet
 
 snippet W "When"
-When -> 
+When ->
 endsnippet
 
 snippet Wi "When inject"
-When inject ($1) -> 
+When inject ($1) ->
 endsnippet
 
 snippet Wd "When (done)"
-When (done) -> 
+When (done) ->
 endsnippet
 
 snippet T "Then"
-Then -> 
+Then ->
 endsnippet
 
 snippet A "And"
-And -> 
+And ->
 endsnippet
 
 snippet I "Invariant"
-Invariant -> 
-endsnippet
-
-snippet r "Require" b
-${1/.*/\u$0/} = require '$1'
+Invariant ->
 endsnippet
 
 snippet f "function"
@@ -61,69 +102,8 @@ snippet FU "function with arguments"
 ($1) =>
 endsnippet
 
-snippet amm "Angular mock module" 
-angular.mock.module '${1:Falcon}'
-endsnippet
-
-snippet contest "Controller test" b
-describe '$1', ->
-    Given -> angular.mock.module 'Falcon'
-
-    When inject ($rootScope, $controller) ->
-        @scope = $rootScope.$new()
-        $controller '$1',
-            $scope: @scope
-
-    Then ->
-endsnippet
-
-snippet lod "Require lodash" b
-_ = require 'lodash'
-endsnippet
-
 snippet P "Blubird Pomise" b
 Promise = require 'bluebird'
-endsnippet
-
-snippet fac "Angular Factory" b
-angular.module('$1').factory '$2', ->
-endsnippet
-
-snippet ser "Angular Service" b
-angular.module('$1').service '$2', ->
-endsnippet
-
-snippet fil "Angular Filter" b
-angular.module('$1').filter '$2', ->
-endsnippet
-
-snippet con "Angular Filter" b
-angular.module('$1').controller '$2', ->
-endsnippet
-
-snippet dir "Angular Directive" b
-angular.module('$1').directive '$2', ->
-	restrict: 'AE'
-	scope: {}
-	link: (scope, element, attrs) ->
-endsnippet
-
-snippet state "Ui router state" b
-.state '$1',
-	url: '$2'
-	controller: '$3'
-	template$4: '$5'
-	resolve:
-		$6
-endsnippet
-
-snippet sc "Scope var" b
-$scope.$1 = $1
-endsnippet
-
-snippet route "Route"
-routes.$1 '$2', (req, res) ->
-  res.end()
 endsnippet
 
 snippet R "Ramda" b
@@ -134,4 +114,34 @@ snippet desm "Describe method" b
 describe '#$1', ->
   When -> @subject.$1()
   Then ->
+endsnippet
+
+snippet CRUDProjectionTest "CRUDProjectionTest" b
+factory = getDep '$1'
+CRUDProjection = di.get 'CRUDProjection'
+
+describe '$2Projection', ->
+
+  When ->
+    $2Projection = factory(CRUDProjection)
+    @subject = new $2Projection()
+  Then -> @subject instanceof CRUDProjection
+  And -> typeof @subject.when$2Created == 'function'
+endsnippet
+
+snippet fac "Factory" b
+module.exports = (
+
+) ->
+
+
+endsnippet
+
+snippet abtest "Abstract test" b
+abstract$1Test = getDep './test/abstract-$2'
+createDI = require('../..$3').createDI
+
+describe '$4 $1', abstract$1Test
+  createDI: createDI
+  env: '$5'
 endsnippet
