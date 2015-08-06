@@ -8,6 +8,7 @@ set wildmenu
 set wildmode=list:longest
 set pastetoggle=<F2>
 
+let g:syntastic_javascript_checkers = ['standard']
 let g:ctrlp_custom_ignore = '\v[\/](\.git|node_modules)$'
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
