@@ -145,3 +145,11 @@ describe '$4 $1', abstract$1Test
   createDI: createDI
   env: '$5'
 endsnippet
+
+snippet abimp "Abstract test implementation" b
+module.exports = (opts) -> ->
+
+  Given ->
+    di = opts.createDI(opts.env)
+    @subject = di.get '$1'
+endsnippet

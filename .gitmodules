@@ -46,3 +46,9 @@
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = git@github.com:plasticboy/vim-markdown.git
+[submodule "bundle/javascript"]
+	path = bundle/javascript
+	url = git@github.com:pangloss/vim-javascript.git
+[submodule "bundle/emmet"]
+	path = bundle/emmet
+	url = http://github.com/mattn/emmet-vim/
