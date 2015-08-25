@@ -181,6 +181,7 @@ let coffee_compiler = '/usr/local/bin/coffee'
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-s 2"
 noremap <F3> :Autoformat<CR><CR>
+noremap <F4> :SyntasticToggleMode<CR><CR> :SyntasticReset<CR><CR>
 
 function! TabCloseRight(bang)
     let cur=tabpagenr()
