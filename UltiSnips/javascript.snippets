@@ -1,17 +1,25 @@
 snippet r "Require" b
-var $1 = require('$1');
+var $1 = require('$1')
 endsnippet
 
 snippet sc "scope variable" b
-$scope.$1 = $1;
+$scope.$1 = $1
 endsnippet
 
-snippet R "Require react" b
-var React = require('react');
+snippet R "Require ramda" b
+var R = require('ramda')
+endsnippet
+
+snippet RF "Require ramda-fantasy" b
+var RF = require('ramda-fantasy')
+endsnippet
+
+snippet mon "Use monad" b
+var $1 = RF.$1
 endsnippet
 
 snippet log "Description"
-console.log($1);
+console.log($1)
 endsnippet
 
 snippet fac "Factory" b
@@ -21,7 +29,7 @@ module.exports = function(
 
   $1
 
-};
+}
 endsnippet
 
 snippet facfac "Factory factory" b
@@ -31,8 +39,8 @@ module.exports = function() {
 
   }
 
-  return $1;
-};
+  return $1
+}
 endsnippet
 
 snippet rcom "React Component" b
@@ -45,42 +53,56 @@ module.exports = function(
   	  $2
       )
     }
-  });
+  })
 
-  return $1;
-};
+  return $1
+}
 endsnippet
 
 snippet CRUDProjection "CRUDProjection" b
-var inherits = require('util').inherits;
+var inherits = require('util').inherits
 module.exports = function(
   CRUDProjection
 ) {
 
-  inherits($1Projection, CRUDProjection);
+  inherits($1Projection, CRUDProjection)
 
   function $1Projection() {
-    $1Projection.super_.call(this, '$1');
-  };
+    $1Projection.super_.call(this, '$1')
+  }
 
-  return $1Projection;
+  return $1Projection
 
-};
+}
 endsnippet
 
 snippet objfac "Object factory" b
 module.exports = function() {
 
   function $1() {
-    var self = {};
+    var self = {}
 
     self.$2 = function() {
 	
-    };
+    }
 
-    return self;
+    return self
   }
 
-  return $1;
-};
+  return $1
+}
+endsnippet
+
+snippet des "describe" b
+describe('$1', function() {
+
+  $2
+
+})
+endsnippet
+
+snippet it "it block" b
+it('$1', function() {
+  $2
+})
 endsnippet
