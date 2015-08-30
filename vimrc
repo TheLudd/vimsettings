@@ -7,6 +7,7 @@ let mapleader = "'"
 set wildmenu
 set wildmode=list:longest
 set pastetoggle=<F2>
+vnoremap // y/<C-R>"<CR>
 
 let g:syntastic_javascript_checkers = ['standard']
 let g:ctrlp_custom_ignore = '\v[\/](\.git|node_modules)$'
