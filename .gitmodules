@@ -55,3 +55,6 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = git@github.com:scrooloose/syntastic.git
+[submodule "bundle/jade"]
+	path = bundle/jade
+	url = git@github.com:digitaltoad/vim-jade.git
